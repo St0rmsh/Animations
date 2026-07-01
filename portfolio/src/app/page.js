@@ -11,7 +11,7 @@ export default function Home() {
   
 
   return (
-   <main className=" h-screen w-full flex items-center bg-[#010101]">
+   <main className=" h-screen w-full flex items-start  bg-[#010101]">
   <InfiniteCarousel projects={projects} />
      
    </main>

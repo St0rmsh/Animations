@@ -4,9 +4,9 @@ import TextReveal from "./TextReveal";
 import gsap from "gsap";
 
 
-const CARD_W = 200;
+const CARD_W = 320;
 const CARD_H = 300;
-const SLCALE = 1.4;
+const SLCALE = 1.25;
 
 const CarouselCard = ({project, onHoverStart, onHoverEnd}) => {
 
@@ -22,7 +22,7 @@ const CarouselCard = ({project, onHoverStart, onHoverEnd}) => {
       gsap.to(cardRef.current,{
         width: CARD_W * SLCALE,
         height: CARD_H * SLCALE,
-        duration: 0.45,
+        duration: 0.25,
         ease: "power3.out"
 
       })

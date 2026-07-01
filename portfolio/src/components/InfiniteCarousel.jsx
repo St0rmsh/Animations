@@ -4,11 +4,11 @@ import CarouselCard from './CarouselCard';
 import gsap from 'gsap';
 
 
-const CARD_W = 200;
+const CARD_W = 320;
 const CARD_H = 300;
 const SLCALE = 1.4;
-const CARD_GAP = 1.35;
-const DURATION = 25;
+const CARD_GAP = 7.35;
+const DURATION = 8;
 
 const TRACK_H = CARD_H * SLCALE;
 
@@ -17,17 +17,18 @@ const InfiniteCarousel = ({projects}) => {
     const trackRef = useRef(null)
     const tweenRef = useRef(null)
 
-    const doubled = [...projects, ...projects]
+    const doubled = [...projects, ...projects,  ...projects, ...projects]
 
 
     useEffect(()=>{
-        const singleWidth = projects.length * (CARD_H + CARD_GAP);
+        const singleWidth = projects.length * (CARD_W + CARD_GAP);
 
         tweenRef.current = gsap.to(trackRef.current, {
             x: -singleWidth,
             ease: "none",
             duration: DURATION,
             repeat: -1,
+            
 
         })
 
