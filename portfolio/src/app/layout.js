@@ -1,6 +1,7 @@
 
 import Providers from "@/components/Providers";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 
 
@@ -16,7 +17,14 @@ export default function RootLayout({ children }) {
       lang="en"
       className={` h-full antialiased`}
     >
-      <body suppressHydrationWarning className="min-h-full flex flex-col"> <Providers>{children}</Providers> </body>
+      <body suppressHydrationWarning className="min-h-full flex flex-col">
+        <Navbar/>
+
+         <Providers>
+            {children}
+          </Providers> 
+          
+         </body>
     </html>
   );
 }
