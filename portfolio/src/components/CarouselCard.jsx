@@ -27,6 +27,12 @@ const CarouselCard = ({project, onHoverStart, onHoverEnd}) => {
 
       })
 
+      gsap.to(imageRef.current,{
+        scale: 1,
+        duration: 0.25,
+        ease: "power3.out"
+      })
+
       numberRef.current?.play();
       titleRef.current?.play()
 
@@ -43,6 +49,13 @@ const CarouselCard = ({project, onHoverStart, onHoverEnd}) => {
 
       })
 
+      
+      gsap.to(imageRef.current,{
+        scale: 1.6,
+        duration: 0.2,
+        ease: "power3.out"
+      })
+
       numberRef.current?.reverse();
       titleRef.current?.reverse()
     }
@@ -51,23 +64,23 @@ const CarouselCard = ({project, onHoverStart, onHoverEnd}) => {
     <div ref={cardRef} onMouseEnter={onEnter} onMouseLeave={onLeave} style={{width:CARD_W, height:CARD_H, flexShrink:0, overflow:"visible", cursor:"pointer"}} className="relative ">
         {/* Title Panel */}
 
-        <div style={{bottom: `calc(100% + 3rem)`}} 
+        <div style={{bottom: `calc(100% + 1.5rem)`}} 
         className="titlePanel absolute left-0 pointer-events-none flex flex-col gap-4 ">
-            <TextReveal ref={numberRef} trigger="manual" splitBy="chars" >
-              <h3 className="text-[1rem] text-[#010101]">
+            <TextReveal ref={numberRef} duration="0.25" trigger="manual" splitBy="chars" >
+              <h3 className="text-[1.3rem] text-[#010101]">
                {project.number}
               </h3>
             </TextReveal>
 
-             <TextReveal ref={numberRef} trigger="manual" splitBy="words" >
-              <h3 className="text-[1rem] text-[#010101]">
+             <TextReveal ref={titleRef} duration="0.1" trigger="manual" splitBy="chars" >
+              <h3 className="text-[1.3rem] text-[#ffff]">
                {project.title}
               </h3>
             </TextReveal>
         </div>
 
         <div className="imageDiv absolute h-full w-full overflow-hidden ">
-          <img style={{transformOrigin: "center center", userSelect: "none"}} className="h-full w-full object-cover" ref={imageRef} src={project.coverImage} alt={project.title} />
+          <img style={{transformOrigin: "center center", userSelect: "none"}} className="h-full w-full scale-[1.6] object-cover" ref={imageRef} src={project.coverImage} alt={project.title} />
         </div>
 
     </div>
