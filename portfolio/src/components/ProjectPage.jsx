@@ -1,13 +1,80 @@
-import React from 'react'
+"use client"
+import React, { useRef } from 'react'
 import TextReveal from './TextReveal'
-import {useGasp} from "../libs/gsap"
+import gsap , { ScrollTrigger, useGSAP } from "../libs/gsap"
+import useViewTransition from '@/hooks/useViewTransition'
 
-const ProjectPage = ({project}) => {
+   
+ 
+
+const ProjectPage = ({project, nextProject}) => {
+
+
+const containerRef = useRef(null);
+const imageRef = useRef(null)
+
+ useGSAP(()=>{
+
+    const sections = gsap.utils.toArray("section")
+    
+
+   gsap.to(imageRef.current,{
+    clipPath: "inset(0% 0 0 0)",
+    scale:1,
+    duration: 2.8,
+    ease: "power3.out",
+    delay:0.8,
+   })
+
+   sections.forEach((section, index) => {
+
+    const container = section.children[0]
+
+   
+
+    gsap.to(container, {
+        rotate:0,
+        ease:"none",
+        scrollTrigger: {
+            trigger: section,
+            start: "top bottom",
+            end: " top 20%",
+            scrub: true,
+        }
+    })
+
+    if(index === sections.length - 1) return ;
+
+    ScrollTrigger.create({
+        trigger: section,
+        start: "bottom bottom",
+        end: "bottom top",
+        pin: true,
+        pinSpacing:false,
+    })
+
+   })
+
+
+
+ },{
+    scope: containerRef
+ })
+
+ const {navigateTo} = useViewTransition()
+
+
+  const handleClick = ()=>{
+        navigateTo(`/projects/${nextProject.slug}`)
+    }
+
+
   return (
     <>
-    <main>
-        <section className='h-screen w-full flex gap-4 pt-[7rem] pb-[3rem] pl-5 pr-5 '>
-            <div className="firstSegment h-full w-[12%] ">
+    <main ref={containerRef} className='overflow-hidden'>
+        <section className='h-screen w-full '>
+            <div className="container h-full w-full flex gap-4 pt-28 pb-12 pl-5 pr-5 ">
+                <div className="firstSegment h-full w-[12%] ">
                 <TextReveal>
                     <h3 className='text-[3rem]'>
                         {project.number}
@@ -15,9 +82,12 @@ const ProjectPage = ({project}) => {
                 </TextReveal>
             </div>
 
-            <div className="secondSegment h-[90%] w-[30%] bg-blue-400">
-                <div className="imgDiv h-full w-full ">
-                    <img className='h-full w-full object-cover' src={project.coverImage} alt="" />
+            <div className="secondSegment h-[90%] w-[30%] ">
+                <div  className="imgDiv h-full w-full overflow-hidden ">
+                    <img ref={imageRef} style={{
+                    clipPath: "inset(100% 0 0 0)"
+                }} 
+                className='h-full scale-[1.4] w-full object-cover' src={project.coverImage} alt="" />
                 </div>
             </div>
 
@@ -52,13 +122,27 @@ const ProjectPage = ({project}) => {
               </div> 
 
             </div>
+            </div>
 
         </section>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section></section>
-        <footer></footer>
+
+        {project.gallery.map((elem,index)=>{
+
+           return(
+             <section key={index} className='h-screen w-full bg-red-300 ' >
+                <div style={{transformOrigin: "bottom left"}} className="container h-full w-full rotate-[30deg] ">
+                   <img className='h-full w-full object-cover ' src={elem} alt="" />
+                </div>
+             </section>
+           )
+
+        })}
+        <footer className='h-screen w-full flex items-center justify-center ' >
+            <h1>Next Project</h1>
+            <h1 onClick={handleClick} className='cursor-pointer'>
+                {nextProject.title}
+            </h1>
+        </footer>
     </main>
     </>
   )

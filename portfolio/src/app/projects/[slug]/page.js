@@ -8,6 +8,7 @@ const page = async ({params}) => {
 
   const index = projects.findIndex((p)=> p.slug === slug)
   const project = projects[index]
+  const nextProject = projects[(index + 1) % projects.length] || null
 
   if(!project){
     return <div>Project not found</div>
@@ -16,7 +17,7 @@ const page = async ({params}) => {
 
   return (
     <>
-    <ProjectPage project={project}/>
+    <ProjectPage project={project} nextProject={nextProject} />
     </>
   )
 }
