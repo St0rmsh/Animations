@@ -3,6 +3,7 @@ import React, { useRef } from 'react'
 import TextReveal from './TextReveal'
 import gsap , { ScrollTrigger, useGSAP } from "../libs/gsap"
 import useViewTransition from '@/hooks/useViewTransition'
+import Footer from './Footer'
 
    
  
@@ -72,80 +73,102 @@ const imageRef = useRef(null)
   return (
     <>
     <main ref={containerRef} className='overflow-hidden'>
-        <section className='h-screen w-full '>
-            <div className="container h-full w-full flex gap-4 pt-28 pb-12 pl-5 pr-5 ">
-                <div className="firstSegment h-full w-[12%] ">
-                <TextReveal>
-                    <h3 className='text-[3rem]'>
-                        {project.number}
-                    </h3>
+    <section className="h-screen w-full bg-[#0a0a0a] text-[#f4f4f2]">
+    <div className="container h-full w-full flex gap-6 pt-28 pb-14 pl-6 pr-6 md:pl-10 md:pr-10">
+
+        {/* first segment — index number */}
+        <div className="firstSegment h-full w-[10%] flex flex-col justify-between">
+            <TextReveal>
+                <h3 className="font-space-grotesk text-[2.5rem] font-medium text-[#f4f4f2]/40">
+                    {project.number}
+                </h3>
+            </TextReveal>
+            <div className="hidden md:block w-6 h-px bg-[#f4f4f2]/20" />
+        </div>
+
+        {/* second segment — image */}
+        <div className="secondSegment h-[90%] w-[32%]">
+            <div className="imgDiv h-full w-full overflow-hidden rounded-sm border border-[#f4f4f2]/10">
+                <img
+                    ref={imageRef}
+                    style={{ clipPath: 'inset(100% 0 0 0)' }}
+                    className="h-full scale-[1.4] w-full object-cover grayscale-[10%]"
+                    src={project.coverImage}
+                    alt={project.title}
+                />
+            </div>
+        </div>
+
+        {/* third segment — text content */}
+        <div className="thirdSegment h-[90%] w-[58%] flex flex-col justify-end">
+
+            <div className="subHeading flex items-center gap-3 mb-4">
+                <TextReveal delay="0.9" splitBy="words">
+                    <span className="font-manrope text-xs md:text-sm tracking-[0.2em] uppercase text-[#f4f4f2]/50">
+                        {project.subtitle}
+                    </span>
+                </TextReveal>
+                <span className="w-1 h-1 rounded-full bg-[#f4f4f2]/30" />
+                <TextReveal delay="0.9" splitBy="chars">
+                    <span className="font-manrope text-xs md:text-sm tracking-[0.2em] text-[#f4f4f2]/50">
+                        {project.year}
+                    </span>
                 </TextReveal>
             </div>
 
-            <div className="secondSegment h-[90%] w-[30%] ">
-                <div  className="imgDiv h-full w-full overflow-hidden ">
-                    <img ref={imageRef} style={{
-                    clipPath: "inset(100% 0 0 0)"
-                }} 
-                className='h-full scale-[1.4] w-full object-cover' src={project.coverImage} alt="" />
-                </div>
-            </div>
-
-            <div className="thirdSegment h-[90%] w-[60%] flex  flex-col justify-end">
-              
-              <div className="heading">
+            <div className="heading">
                 <TextReveal delay="0.9" splitBy="chars">
-                    <h1 className='text-[3rem] leading-[1.1]'>
+                    <h1 className="font-space-grotesk font-medium text-[3.2rem] leading-[1.05] tracking-tight">
                         {project.title}
                     </h1>
                 </TextReveal>
-              </div>
-            <div className="subHeading flex gap-[0.9rem] ">
-                <TextReveal  delay="0.9" splitBy="words">
-                    <h1 className='text-[1.8rem]'>
-                        {project.subtitle}
-                    </h1>
-                </TextReveal>
-                <TextReveal delay="0.9" splitBy="chars">
-                    <h1 className='text-[1.8rem]'>
-                        {project.year}
-                    </h1>
-                </TextReveal>
-              </div> 
+            </div>
 
-            <div className="description mt-6 w-[50%] text-balanced">
+            <div className="description mt-6 w-[55%] max-w-[520px]">
                 <TextReveal delay="0.9" splitBy="words">
-                    <p className='text-[1.2rem] leading-[1.2]'>
+                    <p className="font-manrope text-[1.05rem] leading-[1.5] text-[#f4f4f2]/60 text-balance">
                         {project.description}
                     </p>
                 </TextReveal>
-              </div> 
-
-            </div>
             </div>
 
+        </div>
+    </div>
+</section>
+
+       {project.gallery.map((elem, index) => {
+    return (
+        <section
+            key={index}
+            className="relative h-screen w-full bg-[#0a0a0a] flex items-center justify-center overflow-hidden"
+        >
+            <div
+                style={{ transformOrigin: 'bottom left' }}
+                className="reveal-panel relative h-[80%] w-[85%] md:w-[70%] rotate-[30deg]"
+            >
+                <img
+                    className="h-full w-full object-cover"
+                    src={elem}
+                    alt={`Project visual ${index + 1}`}
+                />
+            </div>
+
+            {/* ghost numeral now comes after, so it's not children[0] */}
+            <span
+                className="absolute font-space-grotesk font-medium text-[28vw] leading-none text-[#f4f4f2]/[0.04] select-none pointer-events-none"
+                aria-hidden="true"
+            >
+                {String(index + 1).padStart(2, '0')}
+            </span>
         </section>
-
-        {project.gallery.map((elem,index)=>{
-
-           return(
-             <section key={index} className='h-screen w-full bg-red-300 ' >
-                <div style={{transformOrigin: "bottom left"}} className="container h-full w-full rotate-[30deg] ">
-                   <img className='h-full w-full object-cover ' src={elem} alt="" />
-                </div>
-             </section>
-           )
-
-        })}
-        <footer className='h-screen w-full flex items-center justify-center ' >
-            <h1>Next Project</h1>
-            <h1 onClick={handleClick} className='cursor-pointer'>
-                {nextProject.title}
-            </h1>
-        </footer>
+    );
+})}
+        <Footer handleClick={handleClick} nextProject={nextProject}/>
     </main>
     </>
   )
 }
+
+
 
 export default ProjectPage
