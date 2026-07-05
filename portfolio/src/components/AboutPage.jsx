@@ -8,12 +8,53 @@ const stack = [
     { label: 'Infra', items: ['Kubernetes', 'Docker', 'Skaffold', 'RabbitMQ'] },
 ]
 
+const building = [
+    {
+        name: 'Streamline',
+        role: 'YouTube-style video platform with AI fact-checking',
+        detail: 'Analyzes video frames and audio to flag misleading claims in real time',
+        status: 'In progress',
+    },
+    {
+        name: 'Zentro',
+        role: 'Full-stack blog platform',
+        detail: 'React + TypeScript frontend, Node/Express backend with OTP email auth',
+        status: 'In progress',
+    },
+    {
+        name: 'Snitch',
+        role: 'E-commerce platform',
+        detail: 'Full storefront and backend for online product sales',
+        status: 'In progress',
+    },
+    {
+        name: 'This portfolio',
+        role: 'Next.js + GSAP + Lenis',
+        detail: 'Motion-driven personal site with scroll-based project reveals',
+        status: 'Shipped',
+    },
+    {
+        name: 'Dog 3D animation',
+        role: 'Three.js / React Three Fiber piece',
+        detail: 'Animated 3D dog model built as a Three.js mastery exercise',
+        status: 'In progress',
+    },
+]
 const AboutPage = () => {
   return (
     <main className="w-full bg-[#0a0a0a] text-[#f4f4f2] overflow-hidden">
 
         {/* section 1 — statement */}
-        <section className="h-screen w-full flex items-center justify-center px-6 md:px-16">
+        <section className="h-screen w-full flex flex-col items-center justify-center px-6 md:px-16">
+            <TextReveal>
+                <div className="flex items-center gap-2 mb-8">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#7cff9b] animate-pulse" />
+                    <span className="font-manrope text-xs tracking-[0.2em] uppercase text-[#f4f4f2]/50">
+                        Currently available for freelance work
+                    </span>
+                </div>
+            </TextReveal>
+
             <div className="max-w-4xl">
                 <TextReveal splitBy="words">
                     <h1 className="font-space-grotesk font-medium text-[8vw] md:text-[4.5rem] leading-[1.05] tracking-tight text-center">
@@ -59,15 +100,16 @@ const AboutPage = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-8">
                     {stack.map((group) => (
-                        <div key={group.label}>
+                        <div key={group.label} className="border-t border-[#f4f4f2]/10 pt-6">
                             <TextReveal>
-                                <h3 className="font-space-grotesk text-[1.6rem] mb-4">
+                                <h3 className="font-space-grotesk text-[1.6rem] mb-5">
                                     {group.label}
                                 </h3>
                             </TextReveal>
-                            <ul className="space-y-2">
+                            <ul className="space-y-3">
                                 {group.items.map((item) => (
-                                    <li key={item}>
+                                    <li key={item} className="flex items-center gap-3">
+                                        <span className="w-1 h-1 rounded-full bg-[#f4f4f2]/30 flex-shrink-0" />
                                         <TextReveal splitBy="words">
                                             <span className="font-manrope text-[1.05rem] text-[#f4f4f2]/60">
                                                 {item}
@@ -84,7 +126,54 @@ const AboutPage = () => {
 
         <div className="w-full h-px bg-[#f4f4f2]/10" />
 
-        {/* section 4 — closing / CTA */}
+        {/* section 4 — currently building (the signature section) */}
+        <section className="h-screen w-full flex items-center px-6 md:px-16">
+            <div className="w-full">
+                <TextReveal>
+                    <span className="font-manrope text-xs md:text-sm tracking-[0.25em] uppercase text-[#f4f4f2]/50 mb-10 block">
+                        03 — Right now
+                    </span>
+                </TextReveal>
+
+                <div className="flex flex-col mt-4">
+                    {building.map((b, i) => (
+                        <div
+                            key={b.name}
+                            className="flex items-center justify-between py-6 border-b border-[#f4f4f2]/10 group"
+                        >
+                            <div className="flex items-baseline gap-6">
+                                <TextReveal>
+                                    <span className="font-manrope text-sm text-[#f4f4f2]/30">
+                                        {String(i + 1).padStart(2, '0')}
+                                    </span>
+                                </TextReveal>
+                                <div>
+                                    <TextReveal splitBy="words">
+                                        <h3 className="font-space-grotesk text-[1.8rem] md:text-[2.2rem] tracking-tight group-hover:text-[#f4f4f2] transition-colors duration-300">
+                                            {b.name}
+                                        </h3>
+                                    </TextReveal>
+                                    <TextReveal splitBy="words" delay="0.1">
+                                        <p className="font-manrope text-sm text-[#f4f4f2]/40 mt-1">
+                                            {b.role}
+                                        </p>
+                                    </TextReveal>
+                                </div>
+                            </div>
+                            <TextReveal>
+                                <span className="font-manrope text-xs tracking-[0.15em] uppercase text-[#f4f4f2]/40 whitespace-nowrap">
+                                    {b.status}
+                                </span>
+                            </TextReveal>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <div className="w-full h-px bg-[#f4f4f2]/10" />
+
+        {/* section 5 — closing / CTA */}
         <section className="h-screen w-full flex flex-col items-center justify-center px-6 md:px-16 text-center">
             <TextReveal splitBy="chars">
                 <h2 className="font-space-grotesk font-medium text-[7vw] md:text-[3.5rem] leading-[1.1] tracking-tight mb-6">
@@ -92,8 +181,8 @@ const AboutPage = () => {
                 </h2>
             </TextReveal>
             <TextReveal delay="0.2">
-                <a
-                    href="/contact"
+                
+                   <a href="/contact"
                     className="font-manrope text-sm tracking-[0.2em] uppercase border border-[#f4f4f2]/30 rounded-full px-8 py-3 hover:bg-[#f4f4f2] hover:text-[#0a0a0a] transition-colors duration-300"
                 >
                     Get in touch
