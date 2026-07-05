@@ -19,7 +19,7 @@ export async function POST(req) {
     try {
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
-            to: process.env.GMAIL_USER, // sending to yourself
+            to: process.env.GMAIL_USER, 
             replyTo: email,
             subject: `Portfolio contact from ${name}`,
             text: message,
