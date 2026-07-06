@@ -83,25 +83,27 @@ export const projects = [
     ],
     "tags": ["Next.js", "WebSockets", "Stripe", "PostgreSQL", "Zod"]
   },
-  {
+ {
     "id": "5",
-    "slug": "devpulse",
+    "slug": "dog-3d-animation",
     "number": "05",
-    "title": "DevPulse",
-    "subtitle": "Developer Activity Dashboard with GitHub & CI Insights",
-    "category": "Frontend Development",
-    "year": "2024",
-    "role": "Frontend Engineer",
-    "description": "A developer productivity dashboard aggregating GitHub activity, CI/CD pipeline status, and PR review metrics into a single real-time view.",
-    "longDescription": "DevPulse solves the context-switching problem for developers juggling multiple repositories. It pulls data from the GitHub REST and GraphQL APIs to surface commit activity, open PRs, review turnaround times, and CI pipeline health in a unified dashboard. Charts are built with Recharts and update on a polling interval with optimistic UI updates. The frontend uses Redux Toolkit for state management with async thunks handling all API side effects. Custom React hooks abstract the data-fetching logic, keeping components lean. The app is fully responsive and supports dark mode via a CSS custom properties token system.",
-    "coverImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-    "heroImage": "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=1400&q=80",
+    "title": "Dog 3D Animation",
+    "subtitle": "Interactive 3D Model Built with React Three Fiber",
+    "category": "3D / Creative Development",
+    "year": "2026",
+    "role": "3D Developer",
+    "description": "A fully modeled, animated 3D dog rendered live in the browser — a hands-on exercise in getting real-time 3D running smoothly on the web.",
+    "longDescription": "This project is a deep dive into React Three Fiber and the broader Three.js ecosystem, built as a deliberate step toward professional-level 3D web development. The model is rendered and animated entirely client-side, with careful attention paid to performance — texture sizing, draw calls, and animation loop efficiency all had to be tuned to keep frame rates smooth rather than just getting something on screen. Camera controls, lighting setup, and material work were all built from scratch rather than relying on defaults, as part of building a genuine reference-level understanding of the R3F pipeline (drei helpers, GSAP-driven camera moves, and the underlying Three.js primitives) instead of just copying a tutorial.",
+    "coverImage": "/projects/dog-animation/cover.png",
+    "heroImage": "/projects/dog-animation/hero.png",
     "gallery": [
-      "https://images.unsplash.com/photo-1527474305487-b87b222841cc?w=800&q=80",
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80",
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80"
+      "/projects/dog-animation/gallery-1.png",
+      "/projects/dog-animation/gallery-2.png",
+      "/projects/dog-animation/gallery-3.png",
+      "/projects/dog-animation/gallery-4.png"
     ],
-    "tags": ["React", "Redux Toolkit", "GitHub API", "Recharts", "TypeScript"]
-  }
+    "tags": ["React Three Fiber", "Three.js", "GSAP", "drei", "WebGL"],
+     "liveUrl": "https://frontend-development-gray.vercel.app/",
+    "repoUrl": "https://github.com/St0rmsh/3d-Animation-dog-studio-clone"
+}
 ]

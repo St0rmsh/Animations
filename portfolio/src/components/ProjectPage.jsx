@@ -73,7 +73,7 @@ const imageRef = useRef(null)
   return (
     <>
     <main ref={containerRef} className='overflow-hidden'>
-    <section className="h-screen w-full bg-[#0a0a0a] text-[#f4f4f2]">
+   <section className="h-screen w-full bg-[#0a0a0a] text-[#f4f4f2]">
     <div className="container h-full w-full flex gap-6 pt-28 pb-14 pl-6 pr-6 md:pl-10 md:pr-10">
 
         {/* first segment — index number */}
@@ -130,6 +130,38 @@ const imageRef = useRef(null)
                         {project.description}
                     </p>
                 </TextReveal>
+            </div>
+
+            {/* links — live site + source code */}
+            <div className="links flex items-center gap-4 mt-8">
+                {project.liveUrl && (
+                    <TextReveal delay="1.1">
+                        
+                          <a  href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative inline-flex items-center gap-2 font-manrope text-sm tracking-[0.15em] uppercase border border-[#f4f4f2]/30 rounded-full px-6 py-2.5 overflow-hidden transition-colors duration-300 hover:text-[#0a0a0a]"
+                        >
+                            <span className="absolute inset-0 bg-[#f4f4f2] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out" />
+                            <span className="relative z-10">View Live</span>
+                            <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+                        </a>
+                    </TextReveal>
+                )}
+
+                {project.repoUrl && (
+                    <TextReveal delay="1.2">
+                        
+                        <a    href={project.repoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group inline-flex items-center gap-1.5 font-manrope text-sm tracking-[0.15em] uppercase text-[#f4f4f2]/50 hover:text-[#f4f4f2] transition-colors duration-300"
+                        >
+                            <span>Source</span>
+                            <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+                        </a>
+                    </TextReveal>
+                )}
             </div>
 
         </div>

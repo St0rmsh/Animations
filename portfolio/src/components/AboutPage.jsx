@@ -37,7 +37,7 @@ const building = [
         name: 'Dog 3D animation',
         role: '3D animation piece',
         detail: 'A fully modeled, animated dog scene built in the browser — a hands-on exercise in getting real 3D work running smoothly on the web.',
-        status: 'In progress',
+        status: 'Shipped',
     },
 ]
 const AboutPage = () => {
