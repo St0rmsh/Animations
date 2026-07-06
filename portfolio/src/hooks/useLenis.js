@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,33 +8,51 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function useLenis() {
+  const lenisRef = useRef(null);
+
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) {
+      // skip Lenis entirely — let native scroll behave normally
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 1.2,
       smoothWheel: true,
-      wheelMultiplier:1,
+      wheelMultiplier: 1,
       touchMultiplier: 2,
-      infinite:false,
+      infinite: false,
+      autoRaf: false, // we drive it manually via gsap.ticker below
     });
 
-    // Sync ScrollTrigger with Lenis
+    lenisRef.current = lenis;
+
     lenis.on("scroll", ScrollTrigger.update);
 
     const update = (time) => {
       lenis.raf(time * 1000);
     };
 
-    // Use GSAP's ticker instead of requestAnimationFrame
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
 
-    // Refresh ScrollTrigger after initialization
-    ScrollTrigger.refresh();
+    // wait for layout (images, fonts) to settle before measuring trigger positions
+    const refreshTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
 
     return () => {
+      clearTimeout(refreshTimeout);
       gsap.ticker.remove(update);
       lenis.destroy();
-      ScrollTrigger.killAll();
+      lenisRef.current = null;
+
     };
   }, []);
+
+  return lenisRef;
 }

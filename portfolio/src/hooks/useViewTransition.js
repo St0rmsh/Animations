@@ -1,27 +1,31 @@
 "use client"
 
-import React from 'react'
 import gsap from '@/libs/gsap'
 import { useRouter } from 'next/navigation'
-import {useCallback, useEffect} from "react"
-
+import { useCallback, useEffect } from 'react'
 
 const STRIP_COUNT = 7
 
+// module-level, not per-component state — this must survive the unmount
+// of whichever component called navigateTo, since router.push() is exactly
+// what unmounts that component mid-transition.
+let isAnimating = false
+let activeTween = null
+
 const createStrips = () => {
-    
-    if (typeof document === "undefined") return null;
+    if (typeof document === 'undefined') return null
 
     const overlay = document.createElement('div')
     overlay.id = 'page-transition-overlay'
     overlay.style.cssText = `
-       position: fixed;
-       z-index: 9999;
-       inset: 0;
-       pointer-events: none;
-       display: flex;
+        position: fixed;
+        z-index: 9999;
+        inset: 0;
+        pointer-events: auto;
+        display: flex;
     `
 
+    const strips = []
     for (let i = 0; i < STRIP_COUNT; i++) {
         const strip = document.createElement('div')
         strip.className = 'page-transition-strip'
@@ -29,75 +33,80 @@ const createStrips = () => {
             flex: 1;
             height: 100%;
             background-color: #010101;
-            transform: ScaleY(0);
-            transform-origin: bottom;
         `
         overlay.appendChild(strip)
+        strips.push(strip)
     }
 
     document.body.appendChild(overlay)
+    gsap.set(strips, { scaleY: 0, transformOrigin: 'bottom' })
 
-    return overlay
+    return { overlay, strips }
 }
 
-const removeOverlay = ()=>{
+const removeOverlay = () => {
     const element = document.getElementById('page-transition-overlay')
-    if (element) {
-        element.remove()
-    }
+    if (element) element.remove()
 }
 
 const useViewTransition = () => {
-
-    useEffect(() => {
-        removeOverlay();
-    }, []);
-
     const router = useRouter()
 
-    const navigateTo = useCallback((href)=>{
+    // defensive cleanup for stray overlays left behind by dev-mode fast
+    // refresh — only runs if nothing is genuinely mid-transition
+    useEffect(() => {
+        if (!isAnimating) {
+            removeOverlay()
+        }
+    }, [])
 
-         
+    const navigateTo = useCallback((href) => {
+        if (isAnimating) return
 
-       const overlay = createStrips()
+        const prefersReducedMotion =
+            typeof window !== 'undefined' &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-       if (!overlay) {
-            router.push(href);
-            return;
+        if (prefersReducedMotion) {
+            router.push(href)
+            return
         }
 
-       const strip = Array.from(overlay.children)
-
-         gsap.to(strip, {
-         scaleY: 1,
-         duration:0.5,
-         ease:"power3.inOut",
-            stagger:{
-                each:0.06,
-                from: "random"
-            },
-            onComplete: ()=>{
+        const created = createStrips()
+        if (!created) {
             router.push(href)
+            return
+        }
 
-            gsap.to(strip,{
-                scaleY: 0,
-                duration:0.5,
-                ease:"power3.inOut",
-                delay:0.3,
-                 stagger:{
-                each:0.06,
-                from: "random"
-                },
-                transformOrigin:"top",
-                onComplete: removeOverlay,
-            })
-            }
-    })
-    },[router])
+        const { strips } = created
+        isAnimating = true
 
-   
+        activeTween = gsap.to(strips, {
+            scaleY: 1,
+            duration: 0.5,
+            ease: 'power3.inOut',
+            stagger: { each: 0.06, from: 'random' },
+            onComplete: () => {
+                router.push(href)
 
-  return { navigateTo }
+                activeTween = gsap.to(strips, {
+                    scaleY: 0,
+                    transformOrigin: 'top',
+                    duration: 0.5,
+                    ease: 'power3.inOut',
+                    delay: 0.3,
+                    stagger: { each: 0.06, from: 'random' },
+                    onComplete: () => {
+                        removeOverlay()
+                        isAnimating = false
+                        activeTween = null
+                    },
+                })
+            },
+        })
+    }, [router])
+
+    return { navigateTo }
 }
 
 export default useViewTransition
