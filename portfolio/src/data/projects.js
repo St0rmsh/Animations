@@ -96,7 +96,7 @@ export const projects = [
     "Context API"
   ],
    "liveUrl": "",
-    "repoUrl": "https://github.com/St0rmsh/Backend/tree/main/Snitch"
+    "repoUrl": "https://github.com/St0rmsh/Backend/Snitch"
 },
  {
     "id": "5",
