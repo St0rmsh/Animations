@@ -64,22 +64,22 @@ export const projects = [
   },
   {
   "id": "4",
-  "slug": "snitch-store",
+  "slug": "shopstream",
   "number": "04",
-  "title": "Shop Stream",
+  "title": "ShopStream",
   "subtitle": "Modern Fashion E-Commerce Platform with Intelligent Shopping Experience",
   "category": "Full Stack Development",
   "year": "2026",
   "role": "Full Stack MERN Developer",
-  "description": "A premium fashion e-commerce platform inspired by Snitch, featuring seamless shopping, secure authentication, product variants, wishlist, intelligent search, and an optimized user experience.",
-  "longDescription": "Snitch Store is a modern fashion e-commerce platform designed to deliver a fast, scalable, and intuitive shopping experience. Built using the MERN Stack, the application follows a clean architecture with modular backend services and reusable frontend components. Customers can browse products, filter by categories, select size and color variants, manage wishlists and carts, securely authenticate using JWT, and place orders through a responsive interface optimized for all devices.The backend is engineered with MongoDB aggregation pipelines, Redis caching, ImageKit for media management, role-based authorization, input validation, and secure REST APIs. The frontend leverages React.js, Redux Toolkit, Context API, lazy loading, code splitting, and modern UI interactions to provide excellent performance and maintainability. The project demonstrates production-level architecture, scalability, and best practices for building large-scale e-commerce applications.",
-  "coverImage": "/projects/shopstream/shopstream-overImage.png",
-  "heroImage": "/projects/shopstream/shopstream-overImage.png",
+  "description": "A premium fashion e-commerce platform inspired by ShopStream, featuring seamless shopping, secure authentication, product variants, wishlist, intelligent search, and an optimized user experience.",
+  "longDescription": "ShopStream Store is a modern fashion e-commerce platform designed to deliver a fast, scalable, and intuitive shopping experience. Built using the MERN Stack, the application follows a clean architecture with modular backend services and reusable frontend components. Customers can browse products, filter by categories, select size and color variants, manage wishlists and carts, securely authenticate using JWT, and place orders through a responsive interface optimized for all devices.The backend is engineered with MongoDB aggregation pipelines, Redis caching, ImageKit for media management, role-based authorization, input validation, and secure REST APIs. The frontend leverages React.js, Redux Toolkit, Context API, lazy loading, code splitting, and modern UI interactions to provide excellent performance and maintainability. The project demonstrates production-level architecture, scalability, and best practices for building large-scale e-commerce applications.",
+  "coverImage": "/projects/shopstream/cover-pic.png",
+  "heroImage": "/projects/shopstream/Hero-pic.png",
   "gallery": [
-    "/projects/shopstream/gallery-4.png",
     "/projects/shopstream/gallery-2.png",
-    "/projects/shopstream/gallery-3.png",
     "/projects/shopstream/gallery-1.png",
+    "/projects/shopstream/gallery-3.png",
+    "/projects/shopstream/gallery-4.png",
   ],
   "tags": [
     "React.js",
@@ -95,8 +95,8 @@ export const projects = [
     "REST API",
     "Context API"
   ],
-   "liveUrl": "",
-    "repoUrl": "https://github.com/St0rmsh/Backend/Snitch"
+   "liveUrl": "https://shopstream-js68.onrender.com/",
+    "repoUrl": "https://github.com/St0rmsh/ShopStream"
 },
  {
     "id": "5",
